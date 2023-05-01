@@ -8,10 +8,14 @@ namespace VendorEvents_1.Models //namespace.foldername
     {
         public int ProductID {get; set; } //Primary Key
 
+        [Display(Name = "Product Name")]
+        [Required]
         public string ProductName {get; set;} = string.Empty; 
 
+        [Display(Name = "Product Description")]
         public string ProductDescription {get; set;} = string.Empty; 
 
+        [Required]
         public decimal ProductPrice {get; set;}
 
         public int ProductQty {get; set;}

@@ -1,21 +1,21 @@
-using lab_11_jnhanke1.Models;
+using VendorEvents_1.Models;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
-builder.Services.AddDbContext<ProfessorContext>(options => 
-    options.UseSqlite(builder.Configuration.GetConnectionString("ProfessorContext")));
+
+builder.Services.AddDbContext<EventContext>(options =>
+    options.UseSqlite(builder.Configuration.GetConnectionString("EventContext")));
 
 var app = builder.Build();
 
-//call my seed data: 
+//call seed data:
 using (var scope = app.Services.CreateScope())
 {
-    var services = scope.ServiceProvider; 
-
-    SeedData.Initialize(services); 
+    var services = scope.ServiceProvider;
+    SeedData.Initialize(services);
 }
 
 // Configure the HTTP request pipeline.

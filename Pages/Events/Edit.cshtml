@@ -1,0 +1,80 @@
+@page
+@model VendorEvents_1.Pages.Events.EditModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>Event</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Event.EventID" />
+            <div class="form-group">
+                <label asp-for="Event.EventName" class="control-label"></label>
+                <input asp-for="Event.EventName" class="form-control" />
+                <span asp-validation-for="Event.EventName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Event.EventLocation" class="control-label"></label>
+                <input asp-for="Event.EventLocation" class="form-control" />
+                <span asp-validation-for="Event.EventLocation" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Event.EventStartDate" class="control-label"></label>
+                <input asp-for="Event.EventStartDate" class="form-control" />
+                <span asp-validation-for="Event.EventStartDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Event.EventCost" class="control-label"></label>
+                <input asp-for="Event.EventCost" class="form-control" />
+                <span asp-validation-for="Event.EventCost" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Event.EventContactName" class="control-label"></label>
+                <input asp-for="Event.EventContactName" class="form-control" />
+                <span asp-validation-for="Event.EventContactName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Event.EventPhone" class="control-label"></label>
+                <input asp-for="Event.EventPhone" class="form-control" />
+                <span asp-validation-for="Event.EventPhone" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Event.EventEmail" class="control-label"></label>
+                <input asp-for="Event.EventEmail" class="form-control" />
+                <span asp-validation-for="Event.EventEmail" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Event.EventComments" class="control-label"></label>
+                <input asp-for="Event.EventComments" class="form-control" />
+                <span asp-validation-for="Event.EventComments" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Event.EventPaid" class="control-label"></label>
+                <input asp-for="Event.EventPaid" class="form-control" />
+                <span asp-validation-for="Event.EventPaid" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Event.EventBooked" class="control-label"></label>
+                <input asp-for="Event.EventBooked" class="form-control" />
+                <span asp-validation-for="Event.EventBooked" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="./Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
