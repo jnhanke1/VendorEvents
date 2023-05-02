@@ -12,15 +12,19 @@ namespace VendorEvents_1.Pages.Events
 {
     public class EditModel : PageModel
     {
+
+        private readonly ILogger<EditModel> _logger;
         private readonly VendorEvents_1.Models.EventContext _context;
 
-        public EditModel(VendorEvents_1.Models.EventContext context)
+        public EditModel(VendorEvents_1.Models.EventContext context, ILogger<EditModel> logger)
         {
             _context = context;
+            _logger = logger; 
         }
 
         [BindProperty]
-        public Event Event { get; set; } = default!;
+        public Event Event { get; set; } = default!; //this is the specific event you are editing. 
+        public List<Product> Products {get; set;} = default!; //this is a list of all products tied to this event -- step 1.
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -29,7 +33,9 @@ namespace VendorEvents_1.Pages.Events
                 return NotFound();
             }
 
-            var event =  await _context.Event.FirstOrDefaultAsync(m => m.EventID == id);
+            //bring in related data using Include and ThenInclude -- step 2.
+            var event =  await _context.Event.Include(e => e.EventProducts!).ThenInclude(ep => ep.Product).FirstOrDefaultAsync(m => m.EventID == id);
+            //get a list of all products. this list is used to make checkboxes!!!:
             if (event == null)
             {
                 return NotFound();
@@ -40,15 +46,25 @@ namespace VendorEvents_1.Pages.Events
 
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see https://aka.ms/RazorPagesCRUD.
-        public async Task<IActionResult> OnPostAsync()
+        public async Task<IActionResult> OnPostAsync(int[] selectedEvents)
         {
             if (!ModelState.IsValid)
             {
                 return Page();
             }
 
+            //_context.Attach(event).State = entitystate.Modified - finds the event you want to update and update all their 'normal properties' 
             _context.Attach(Event).State = EntityState.Modified;
+            var eventToUpdate = await _context.Event.Include(e => e.EventProducts!).ThenInclude(ep => ep.Product).FirstOrDefaultAsync(m => m.EventID == Event.EventID); //matches event to EventID
+            if (eventToUpdate != null)
+            {
+                eventToUpdate.EventName = Event.EventName; //have to update event info
+                eventToUpdate.EventStartDate = Event.EventStartDate; //updates event info 
 
+                //separate method to update the products -- too complex here. 
+                UpdateEventProducts(selectedProducts, eventToUpdate); //new method -- pass in list of selected products and the event to update. 
+            }
+            
             try
             {
                 await _context.SaveChangesAsync();
@@ -70,7 +86,45 @@ namespace VendorEvents_1.Pages.Events
 
         private bool EventExists(int id)
         {
-          return (_context.Event?.Any(e => e.EventID == id)).GetValueOrDefault();
+          return (_context.Event?.Any(e => e.EventID == id));
+        }
+
+        private void UpdateEventProducts(int[] selectedProducts, Event eventToUpdate)
+        {
+            if (selectedProducts == null)
+            {
+                eventToUpdate.EventProducts = new List<EventProduct>();
+                return; 
+            }
+
+            //make two lists -- current products and selected products to compare and determine updates. 
+            List<int> currentProducts = eventToUpdate.EventProducts!.Select(p => p.ProductID).ToList();
+            List<int> selectedProductsList = selectedProducts.ToList(); 
+
+            foreach (var product in _context.Product) //loop through all products in database.
+            {
+                if(selectedProductsList.Contains(product.ProductID)) //if selected product is in this list.
+                {
+                    if (!currentProducts.Contains(product.ProductID)) //and event is not included
+                    {
+                        //add product here:
+                        eventToUpdate.EventProducts!.Add(
+                            new EventProduct {EventID = eventToUpdate.EventID, ProductID = product.ProductID}
+                        ); //save changes
+                        _logger.LogWarning($"Event {eventToUpdate.EventName}, on {eventToUpdate.EventStartDate} ({productToUpdate.EventID}) - ADD {product.ProductID} - {product.ProductName}"); 
+                    }
+                }
+                else 
+                {
+                    if (currentProducts.Contains(product.ProductID)) //if current products list icnludes one product not in selected list - remove product!
+                    {
+                        //remove product:
+                        EventProduct productToRemove = eventToUpdate.EventProducts!.SingleOrDefault(e => e.ProductID == product.ProductID)!; 
+                        _context.Remove(productToRemove); //save changes
+                        _logger.LogWarning($"Event {eventToUpdate.EventName}, on {eventToUpdate.EventStartDate} ({studentToUpdate.EventID}) - DELETE {product.ProductID} - {product.ProductName}"); 
+                    }
+                }
+            }
         }
     }
 }

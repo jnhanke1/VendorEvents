@@ -24,7 +24,7 @@ namespace VendorEvents_1.Pages.Events
         {
             if (_context.Event != null)
             {
-                Event = await _context.Event.ToListAsync();
+                Event = await _context.Event.Include(e => e.EventProducts!).ThenInclude(ep => ep.Product).ToListAsync(); //bring in all data for an event. .include --includes event product association table, then product info. 
             }
         }
     }

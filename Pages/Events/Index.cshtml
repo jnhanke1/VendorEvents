@@ -5,7 +5,7 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<h1>Event Index</h1>
 
 <p>
     <a asp-page="Create">Create New</a>
@@ -78,6 +78,20 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.EventBooked)
+            </td>
+
+            <td>
+            @*  product represents an EventProducts record
+                Each product has a Product navigation property which is the actual product
+                The Product has a description. So you do product.Product.ProductDescription *@
+            @foreach (var product in item.EventProducts!)
+            {
+                @product.Product.ProductDescription <br />
+            }
+            @if (item.EventProducts.Count == 0)
+            {
+                @:No product listed for this event.
+            }                  
             </td>
             <td>
                 <a asp-page="./Edit" asp-route-id="@item.EventID">Edit</a> |
