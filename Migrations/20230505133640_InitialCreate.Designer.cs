@@ -11,7 +11,7 @@ using VendorEvents_1.Models;
 namespace VendorEvents_1.Migrations
 {
     [DbContext(typeof(EventContext))]
-    [Migration("20230505125745_InitialCreate")]
+    [Migration("20230505133640_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />

@@ -67,13 +67,15 @@ namespace VendorEvents_1.Models
                 };
                     context.AddRange(products); 
 
-//                List<EventProduct> sell = new List<EventProduct>{
-//                    new EventProduct {ProductID = 1, EventID = 1},
-//                    new EventProduct {ProductID = 2, EventID = 1},
-//                    new EventProduct {ProductID = 2, EventID = 2},
-  //                  new EventProduct {ProductID = 3, EventID = 1}                   
- //               }; 
- //               context.AddRange(sell);
+                    context.SaveChanges();
+
+                List<EventProduct> sell = new List<EventProduct>{
+                    new EventProduct {ProductID = 1, EventID = 1},
+                    new EventProduct {ProductID = 2, EventID = 1},
+                    new EventProduct {ProductID = 2, EventID = 2},
+                  new EventProduct {ProductID = 3, EventID = 1}                   
+               }; 
+               context.AddRange(sell);
 
                 context.SaveChanges();
             }
