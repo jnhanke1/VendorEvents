@@ -15,7 +15,7 @@ namespace VendorEvents_1.Models
                 }
 
                 List<Event> events = new List<Event> {
-                    new Event {EventName = "Fiesta On The Square", EventLocation = "Woflin Square - Amarillo, TX", EventStartDate = DateTime.Parse("5/6/2023 9:00 am"), 
+                    new Event {EventName = "Fiesta On The Square", EventLocation = "Woflin Square - Amarillo, TX", EventStartDate = DateTime.Parse("5/6/2023 9:00:00"), 
                     EventCost = 50M, EventContactName = "McKay Anderson", EventPhone = 000-000-0000, EventEmail = "mckay@maysinvestments.com", 
                     EventComments = "**Repeat Event -- outdoors. Bring Tent**", EventPaid = "Y", EventBooked = "Y"},
                     new Event {EventName = "Caprock Roundup & Old Settler's Reunion", EventLocation = "Claude, TX", EventStartDate = DateTime.Parse("7/8/2023"), 
@@ -33,7 +33,7 @@ namespace VendorEvents_1.Models
                     new Event {EventName = "Summer Kickoff", EventLocation = "Starlight Ranch, Amarillo, TX", EventStartDate = DateTime.Parse("5/27/23"), 
                     EventCost = 75.00M, EventContactName = "Amber White", EventPhone = 000-000-0000, EventEmail = "a.white@familyfunfestivals.org", 
                     EventComments = "Outdoor --  price is 1/2 standard fee", EventPaid = "N", EventBooked = "N"},
-                    new Event {EventName = "Wildcat Country Craft Fair", EventLocation = "River Road Middle School, Amarillo, TX", EventStartDate = DateTime.Parse("5/6/23 9:00 AM"), 
+                    new Event {EventName = "Wildcat Country Craft Fair", EventLocation = "River Road Middle School, Amarillo, TX", EventStartDate = DateTime.Parse("5/6/23 9:00:00"), 
                     EventCost = 40M, EventContactName = "Tiffany Lamb", EventPhone = 000-000-0000, EventEmail = "riverroadmsboosters@gmail.com", 
                     EventComments = "Indoor fee - $40. Outdoor booths - $20.", EventPaid = "N", EventBooked = "N"},
                     new Event {EventName = "Contagion Athletics Small Business Fair", EventLocation = "Contagion Athletics, Amarillo, TX", EventStartDate = DateTime.Parse("7/23/23"), 
@@ -42,7 +42,7 @@ namespace VendorEvents_1.Models
                     new Event {EventName = "St. Pat5rick's Day Main Street Market", EventLocation = "Shamrock, TX", EventStartDate = DateTime.Parse("3/19/23"), 
                     EventCost = 75M, EventContactName = "Wayne", EventPhone = 806-334-0777, EventEmail = "shamrock.vendors@yahoo.com", 
                     EventComments = "Fee is for both Saturday & Sunday. Indoors. 10 AM - 4 PM both days.", EventPaid = "N", EventBooked = "N"},
-                    new Event {EventName = "Sip & Shop", EventLocation = "Craft Cocktail Lounge, 626 S. Polk, Amarillo, TX", EventStartDate = DateTime.Parse("5/20/23 2:00 PM"), 
+                    new Event {EventName = "Sip & Shop", EventLocation = "Craft Cocktail Lounge, 626 S. Polk, Amarillo, TX", EventStartDate = DateTime.Parse("5/20/23 2:00:00 PM"), 
                     EventCost = 0M, EventContactName = " ", EventPhone = 000-000-0000, EventEmail = "email@email.com", 
                     EventComments = "Indoors, 2-6 PM", EventPaid = "N", EventBooked = "N"},
                     new Event {EventName = "Canadian 4th of July Rodeo", EventLocation = "Canadian, TX", EventStartDate = DateTime.Parse("7/1/23"), 
@@ -51,7 +51,7 @@ namespace VendorEvents_1.Models
                     new Event {EventName = "Boomtown Vendor Show", EventLocation = "Borger Aluminum Dome, Borger, TX", EventStartDate = DateTime.Parse("5/6/23"), 
                     EventCost = 0M, EventContactName = "Misty Storm", EventPhone = 806-395-7797, EventEmail = "email@email.com", 
                     EventComments = "xyz", EventPaid = "N", EventBooked = "N"},
-                    new Event {EventName = "Straight 8 Tournament", EventLocation = "Cactus Bar, Amarillo, TX", EventStartDate = DateTime.Parse("6/3/23 12:00 PM"), 
+                    new Event {EventName = "Straight 8 Tournament", EventLocation = "Cactus Bar, Amarillo, TX", EventStartDate = DateTime.Parse("6/3/23 12:00:00 PM"), 
                     EventCost = 35M, EventContactName = "LeeOra Avant", EventPhone = 806-316-8243, EventEmail = "l.c.glitter.desgin@gmail.com", 
                     EventComments = "benefit fundraiser", EventPaid = "N", EventBooked = "N"}
 
@@ -67,13 +67,13 @@ namespace VendorEvents_1.Models
                 };
                     context.AddRange(products); 
 
-                List<EventProduct> sell = new List<EventProduct>{
-                    new EventProduct {ProductID = 1, EventID = 1},
-                    new EventProduct {ProductID = 2, EventID = 1},
-                    new EventProduct {ProductID = 2, EventID = 2},
-                    new EventProduct {ProductID = 3, EventID = 1}                   
-                }; 
-                context.AddRange(sell);
+//                List<EventProduct> sell = new List<EventProduct>{
+//                    new EventProduct {ProductID = 1, EventID = 1},
+//                    new EventProduct {ProductID = 2, EventID = 1},
+//                    new EventProduct {ProductID = 2, EventID = 2},
+  //                  new EventProduct {ProductID = 3, EventID = 1}                   
+ //               }; 
+ //               context.AddRange(sell);
 
                 context.SaveChanges();
             }

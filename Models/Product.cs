@@ -34,12 +34,6 @@ namespace VendorEvents_1.Models //namespace.foldername
         //    return $"({ProductID} - {ProductName} /n /t Retail Price: {ProductPrice} | Quantity on Hand: {ProductQty}  /n /t {ProductDescription}, /n /t Vendor Resource: {ProductSource})"; 
         //}
 
-    public class EventProduct
-    {
-        public int EventID {get; set;} //composite primary key; foreign key 1
-        public int ProductID {get; set;} //composite primary key, foreign key 2
-        public Event Event {get; set;} = default!; //navigation property. One event per EventProduct.
-        public Product Product {get; set;} = default!; //navigation property. one product per EventProduct. 
-    }
+
     }
 }

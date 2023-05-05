@@ -22,7 +22,8 @@ namespace VendorEvents_1.Pages.Events
             _logger = logger; 
         }
 
-      public Event Event { get; set; } = default!; 
+        [BindProperty]
+        public Event Event { get; set; } = default!; 
         
         [BindProperty]
         public int ProductIDToDelete {get; set;}
@@ -63,7 +64,7 @@ namespace VendorEvents_1.Pages.Events
                 return NotFound(); 
             }
 
-            var myevent = await _context.Event.Include(e => e.EventProducts!).ThenInclude(ep => ep.Product).FirstOrDefaultAsync(m => m.EventID == id); 
+            var myevent = await _context.Event.Include(e => e.EventProducts!).ThenInclude(ep => ep.Product).FirstOrDefaultAsync(m => m.EventID == id);  //select event info.
 
             if(Event == null)
             {

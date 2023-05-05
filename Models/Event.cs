@@ -39,11 +39,11 @@ namespace VendorEvents_1.Models //namespace.Folder name
         
         public List<EventProduct> EventProducts {get; set;} = default!;  //Navigation Property. One event can have many products offered. 
 
-        public override string ToString()
-        {
-            return $"({EventStartDate.Date} {EventStartDate.TimeOfDay} | {EventName}  /n /t Location: {EventLocation}, Cost: ${EventCost} /n Event Booked: {EventBooked}  |  Event Paid: {EventPaid} /n /t Comments: {EventComments}  /n /t Contact: {EventContactName}, {EventPhone}, {EventEmail})"; 
+       // public override string ToString()
+     //   {
+    //        return $"({EventStartDate.Date} {EventStartDate.TimeOfDay} | {EventName}  /n /t Location: {EventLocation}, Cost: ${EventCost} /n Event Booked: {EventBooked}  |  Event Paid: {EventPaid} /n /t Comments: {EventComments}  /n /t Contact: {EventContactName}, {EventPhone}, {EventEmail})"; 
     
-        }
+     //   }
     }
 
     public class EventProduct
