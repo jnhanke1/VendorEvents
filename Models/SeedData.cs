@@ -15,9 +15,15 @@ namespace VendorEvents_1.Models
                 }
 
                 List<Event> events = new List<Event> {
-                    new Event {EventName = "Fiesta On The Square", EventLocation = "Woflin Square - Amarillo, TX", EventStartDate = DateTime.Parse("5/6/2023 9:00 am"), EventCost = 50M, EventContactName = "McKay Anderson", EventPhone = 000-000-0000, EventEmail = "mckay@maysinvestments.com", EventComments = "**Repeat Event -- outdoors. Bring Tent**", EventPaid = "Y", EventBooked = "Y"},
-                    new Event {EventName = "Caprock Roundup & Old Settler's Reunion", EventLocation = "Claude, TX", EventStartDate = DateTime.Parse("7/8/2023"), EventCost = 50M, EventContactName = "Claude Chamber of Commerce", EventPhone = 806-310-9044, EventEmail = "claudetxchamber@gmail.com", EventComments = "Outdoors - Bring Tent", EventPaid = "N", EventBooked = "N"},
-                    new Event {EventName = "Memorial Bash 2023", EventLocation = "City Park - Fritch, TX", EventStartDate = DateTime.Parse("5/27/2023"), EventCost = 40M, EventContactName = "Whitney Phillips", EventPhone = 806-676-5269, EventEmail = "phillipswhitney94@gmail.com", EventComments = "Indoor Event. 20x20 booth reserved.", EventPaid = "N", EventBooked = "Y"}
+                    new Event {EventName = "Fiesta On The Square", EventLocation = "Woflin Square - Amarillo, TX", EventStartDate = DateTime.Parse("5/6/2023 9:00 am"), 
+                    EventCost = 50M, EventContactName = "McKay Anderson", EventPhone = 000-000-0000, EventEmail = "mckay@maysinvestments.com", 
+                    EventComments = "**Repeat Event -- outdoors. Bring Tent**", EventPaid = "Y", EventBooked = "Y"},
+                    new Event {EventName = "Caprock Roundup & Old Settler's Reunion", EventLocation = "Claude, TX", EventStartDate = DateTime.Parse("7/8/2023"), 
+                    EventCost = 50M, EventContactName = "Claude Chamber of Commerce", EventPhone = 806-310-9044, EventEmail = "claudetxchamber@gmail.com", 
+                    EventComments = "Outdoors - Bring Tent", EventPaid = "N", EventBooked = "N"},
+                    new Event {EventName = "Memorial Bash 2023", EventLocation = "City Park - Fritch, TX", EventStartDate = DateTime.Parse("5/27/2023"), 
+                    EventCost = 40M, EventContactName = "Whitney Phillips", EventPhone = 806-676-5269, EventEmail = "phillipswhitney94@gmail.com", 
+                    EventComments = "Indoor Event. 20x20 booth reserved.", EventPaid = "N", EventBooked = "Y"}
                     }; 
                 context.AddRange(events); 
 

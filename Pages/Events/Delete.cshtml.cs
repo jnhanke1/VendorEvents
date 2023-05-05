@@ -28,15 +28,15 @@ namespace VendorEvents_1.Pages.Events
                 return NotFound();
             }
 
-            var event = await _context.Event.FirstOrDefaultAsync(m => m.EventID == id);
+            var myevent = await _context.Event.FirstOrDefaultAsync(m => m.EventID == id);
 
-            if (event == null)
+            if (myevent == null)
             {
                 return NotFound();
             }
             else 
             {
-                Event = event;
+                Event = myevent;
             }
             return Page();
         }
@@ -47,11 +47,11 @@ namespace VendorEvents_1.Pages.Events
             {
                 return NotFound();
             }
-            var event = await _context.Event.FindAsync(id);
+            var myevent = await _context.Event.FindAsync(id);
 
-            if (event != null)
+            if (myevent != null)
             {
-                Event = event;
+                Event = myevent;
                 _context.Event.Remove(Event);
                 await _context.SaveChangesAsync();
             }

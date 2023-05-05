@@ -41,16 +41,16 @@ namespace VendorEvents_1.Pages.Events
                 return NotFound();
             }
 
-            var event = await _context.Event.Include(e => e.EventProducts!).ThenInclude(ep => ep.Product).FirstOrDefaultAsync(m => m.EventID == id); //add in event info
+            var myevent = await _context.Event.Include(e => e.EventProducts!).ThenInclude(ep => ep.Product).FirstOrDefaultAsync(m => m.EventID == id); //add in event info
             AllProducts = await _context.Product.ToListAsync(); 
             ProductsDropDown = new SelectList(AllProducts, "ProductID", "ProductName", "ProductDescription"); 
-            if (event == null)
+            if (myevent == null)
             {
                 return NotFound();
             }
             else 
             {
-                Event = event;
+                Event = myevent;
             }
             return Page();
         }
@@ -63,7 +63,7 @@ namespace VendorEvents_1.Pages.Events
                 return NotFound(); 
             }
 
-            var event = await _context.Event.Include(e => e.EventProducts!).ThenInclude(ep => ep.Product).FirstOrDefaultAsync(m => m.EventID == id); 
+            var myevent = await _context.Event.Include(e => e.EventProducts!).ThenInclude(ep => ep.Product).FirstOrDefaultAsync(m => m.EventID == id); 
 
             if(Event == null)
             {
@@ -71,7 +71,7 @@ namespace VendorEvents_1.Pages.Events
             }
             else
             {
-                Event = event; 
+                Event = myevent; 
             }
 
             EventProduct productToDelete = _context.EventProduct.Find(ProductIDToDelete, id.Value)!; //searches for product id and event id to delete.
@@ -95,18 +95,27 @@ namespace VendorEvents_1.Pages.Events
             if(ProductIDToAdd == 0)
             {
                 ModelState.AddModelError("ProductIDToAdd", "This is a required field."); //return error if no products chosen.
-                return.Page(); 
+                return Page(); 
             }
             if(id == null)
             {
                 return NotFound(); 
             }
+            
+            var myevent = await _context.Event.Include(e => e.EventProducts!).ThenInclude(ep => ep.Product).FirstOrDefaultAsync(m => m.EventID == id); 
+            AllProducts = await _context.Product.ToListAsync();
+            ProductsDropDown = new SelectList(AllProducts, "ProductID", "ProductDescription"); 
+
+            if (Event == null)
+            {
+                return NotFound(); 
+            }
             else
             {
-                Event = event; 
+                Event = myevent; 
             }
 
-            if(!_context.EventProduct.Any(ep => ep.ProductID == ProductToAdd && ep.EventID == id.Value))
+            if(!_context.EventProduct.Any(ep => ep.ProductID == ProductIDToAdd && ep.EventID == id.Value))
             {
                 EventProduct productToAdd = new EventProduct {EventID = id.Value, ProductID = ProductIDToAdd}; //list product for event
                 _context.Add(productToAdd); 
@@ -118,6 +127,7 @@ namespace VendorEvents_1.Pages.Events
             }
 
             return RedirectToPage(new {id = id}); 
+
         }
     }
 }

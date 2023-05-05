@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging; 
 using VendorEvents_1.Models;
 
 namespace VendorEvents_1.Pages.Events
@@ -34,19 +35,19 @@ namespace VendorEvents_1.Pages.Events
             }
 
             //bring in related data using Include and ThenInclude -- step 2.
-            var event =  await _context.Event.Include(e => e.EventProducts!).ThenInclude(ep => ep.Product).FirstOrDefaultAsync(m => m.EventID == id);
+            var myevent =  await _context.Event.Include(e => e.EventProducts!).ThenInclude(ep => ep.Product).FirstOrDefaultAsync(m => m.EventID == id);
             //get a list of all products. this list is used to make checkboxes!!!:
-            if (event == null)
+            if (myevent == null)
             {
                 return NotFound();
             }
-            Event = event;
+            Event = myevent;
             return Page();
         }
 
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see https://aka.ms/RazorPagesCRUD.
-        public async Task<IActionResult> OnPostAsync(int[] selectedEvents)
+        public async Task<IActionResult> OnPostAsync(int[] selectedProducts)
         {
             if (!ModelState.IsValid)
             {
@@ -86,8 +87,9 @@ namespace VendorEvents_1.Pages.Events
 
         private bool EventExists(int id)
         {
-          return (_context.Event?.Any(e => e.EventID == id));
+          return _context.Event.Any(e => e.EventID == id);
         }
+
 
         private void UpdateEventProducts(int[] selectedProducts, Event eventToUpdate)
         {
@@ -111,7 +113,7 @@ namespace VendorEvents_1.Pages.Events
                         eventToUpdate.EventProducts!.Add(
                             new EventProduct {EventID = eventToUpdate.EventID, ProductID = product.ProductID}
                         ); //save changes
-                        _logger.LogWarning($"Event {eventToUpdate.EventName}, on {eventToUpdate.EventStartDate} ({productToUpdate.EventID}) - ADD {product.ProductID} - {product.ProductName}"); 
+                        _logger.LogWarning($"Event {eventToUpdate.EventName}, on {eventToUpdate.EventStartDate} ({eventToUpdate.EventID}) - ADD {product.ProductID} - {product.ProductName}"); 
                     }
                 }
                 else 
@@ -121,7 +123,7 @@ namespace VendorEvents_1.Pages.Events
                         //remove product:
                         EventProduct productToRemove = eventToUpdate.EventProducts!.SingleOrDefault(e => e.ProductID == product.ProductID)!; 
                         _context.Remove(productToRemove); //save changes
-                        _logger.LogWarning($"Event {eventToUpdate.EventName}, on {eventToUpdate.EventStartDate} ({studentToUpdate.EventID}) - DELETE {product.ProductID} - {product.ProductName}"); 
+                        _logger.LogWarning($"Event {eventToUpdate.EventName}, on {eventToUpdate.EventStartDate} ({eventToUpdate.EventID}) - DELETE {product.ProductID} - {product.ProductName}"); 
                     }
                 }
             }
