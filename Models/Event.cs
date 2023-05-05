@@ -37,7 +37,7 @@ namespace VendorEvents_1.Models //namespace.Folder name
         public string EventBooked {get; set;} = string.Empty; 
 
         
-        public List<EventProduct>? EventProducts {get; set;} = default!;  //Navigation Property. One event can have many products offered. 
+        public List<EventProduct> EventProducts {get; set;} = default!;  //Navigation Property. One event can have many products offered. 
 
         public override string ToString()
         {
