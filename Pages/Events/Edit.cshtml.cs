@@ -37,6 +37,7 @@ namespace VendorEvents_1.Pages.Events
             //bring in related data using Include and ThenInclude -- step 2.
             var myevent =  await _context.Event.Include(e => e.EventProducts!).ThenInclude(ep => ep.Product).FirstOrDefaultAsync(m => m.EventID == id);
             //get a list of all products. this list is used to make checkboxes!!!:
+            Products = _context.Product.ToList();
             if (myevent == null)
             {
                 return NotFound();
@@ -61,6 +62,15 @@ namespace VendorEvents_1.Pages.Events
             {
                 eventToUpdate.EventName = Event.EventName; //have to update event info
                 eventToUpdate.EventStartDate = Event.EventStartDate; //updates event info 
+                eventToUpdate.EventLocation = Event.EventLocation; 
+                eventToUpdate.EventComments = Event.EventComments; 
+                eventToUpdate.EventContactName = Event.EventContactName; 
+                eventToUpdate.EventPhone = Event.EventPhone; 
+                eventToUpdate.EventEmail = Event.EventEmail; 
+                eventToUpdate.EventCost = Event.EventCost; 
+                eventToUpdate.EventBooked = Event.EventBooked; 
+                eventToUpdate.EventPaid = Event.EventPaid; 
+
 
                 //separate method to update the products -- too complex here. 
                 UpdateEventProducts(selectedProducts, eventToUpdate); //new method -- pass in list of selected products and the event to update. 
@@ -118,7 +128,7 @@ namespace VendorEvents_1.Pages.Events
                 }
                 else 
                 {
-                    if (currentProducts.Contains(product.ProductID)) //if current products list icnludes one product not in selected list - remove product!
+                    if (currentProducts.Contains(product.ProductID)) //if current products list includes one product not in selected list - remove product!
                     {
                         //remove product:
                         EventProduct productToRemove = eventToUpdate.EventProducts!.SingleOrDefault(e => e.ProductID == product.ProductID)!; 

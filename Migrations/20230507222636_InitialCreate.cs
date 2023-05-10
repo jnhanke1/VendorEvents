@@ -25,8 +25,8 @@ namespace VendorEvents_1.Migrations
                     EventPhone = table.Column<int>(type: "INTEGER", nullable: false),
                     EventEmail = table.Column<string>(type: "TEXT", nullable: false),
                     EventComments = table.Column<string>(type: "TEXT", nullable: false),
-                    EventPaid = table.Column<string>(type: "TEXT", maxLength: 1, nullable: false),
-                    EventBooked = table.Column<string>(type: "TEXT", maxLength: 1, nullable: false)
+                    EventBooked = table.Column<string>(type: "TEXT", maxLength: 1, nullable: false),
+                    EventPaid = table.Column<string>(type: "TEXT", maxLength: 1, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -43,7 +43,8 @@ namespace VendorEvents_1.Migrations
                     ProductDescription = table.Column<string>(type: "TEXT", nullable: false),
                     ProductPrice = table.Column<decimal>(type: "TEXT", nullable: false),
                     ProductQty = table.Column<int>(type: "INTEGER", nullable: false),
-                    ProductSource = table.Column<string>(type: "TEXT", nullable: false)
+                    ProductSource = table.Column<string>(type: "TEXT", nullable: false),
+                    ProductImage = table.Column<string>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {

@@ -1,0 +1,76 @@
+@page
+@model ProductModel
+
+@{
+    ViewData["Title"] = "Products";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Products Ofered</h1>
+</div>
+<!--a list of all products sold through the company-->
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Products[0].ProductName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Products[0].ProductDescription)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Products[0].ProductPrice)
+            </th>    
+            <th>
+                @Html.DisplayNameFor(model => model.Products[0].ProductQty)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Products[0].ProductSource)
+            </th> 
+            <th>
+                @Html.DisplayNameFor(model => model.Products[0].ProductImage)
+            </th>           
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Products) {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ProductName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ProductDescription)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ProductPrice)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ProductQty)
+                    </td>
+                    <td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ProductSource)
+
+                    @*  product represents an EventProducts record
+                        Each product has a Product navigation property which is the actual product
+                        The Product has a description. So you do product.Product.ProductDescription 
+                    @foreach (var event in item.EventProducts!)
+                    {
+                        @myevent.Event.EventName <br />
+                    }
+                    @if (item.EventProducts.Count == 0)
+                    {
+                        @:This product will not be sold at any events. Contact us to order!
+                    }      *@            
+                    </td>
+                    <td>
+                    @*    <a asp-page="./Edit" asp-route-id="@item.ProductID">Edit</a> |
+                        <a asp-page="./Details" asp-route-id="@item.ProductID">Details</a> |
+                        <a asp-page="./Delete" asp-route-id="@item.ProductID">Delete</a> *@
+                    </td>
+                </tr>
+        }
+    </tbody>
+</table>

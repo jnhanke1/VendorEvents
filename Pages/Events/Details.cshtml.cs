@@ -44,7 +44,7 @@ namespace VendorEvents_1.Pages.Events
 
             var myevent = await _context.Event.Include(e => e.EventProducts!).ThenInclude(ep => ep.Product).FirstOrDefaultAsync(m => m.EventID == id); //add in event info
             AllProducts = await _context.Product.ToListAsync(); 
-            ProductsDropDown = new SelectList(AllProducts, "ProductID", "ProductName", "ProductDescription"); 
+            ProductsDropDown = new SelectList(AllProducts, "ProductName", "ProductDescription"); 
             if (myevent == null)
             {
                 return NotFound();

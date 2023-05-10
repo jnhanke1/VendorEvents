@@ -2,10 +2,10 @@
 @model VendorEvents_1.Pages.Events.EditModel
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Edit Event Details";
 }
 
-<h1>Edit</h1>
+<h1>Edit Event Details</h1>
 
 <h4>Event</h4>
 <hr />
@@ -64,8 +64,9 @@
                 <input asp-for="Event.EventBooked" class="form-control" />
                 <span asp-validation-for="Event.EventBooked" class="text-danger"></span>
             </div>
+            <h5>Products for sale at this Event:</h5>
             <div class="form-group">
-                <div class="col-md-offset-2 col-md-10">
+                <div class="col-md-offset-4 col-md-8">
                     <table>
                         <tr>
                             @* loop through all products and display them with a checkbox.
@@ -86,7 +87,7 @@
                                         check = "checked";
                                     }
                                     <td>
-                                        <input type="checkbox" name="selectedProducts" value="@product.ProductID" @check /> @product.ProductDescription
+                                        <input type="checkbox" name="selectedProducts" value="@product.ProductID" @check /> @product.ProductName
                                     </td>
                                     cnt++;
                                 }

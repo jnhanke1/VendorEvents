@@ -11,7 +11,7 @@ using VendorEvents_1.Models;
 namespace VendorEvents_1.Migrations
 {
     [DbContext(typeof(EventContext))]
-    [Migration("20230505133640_InitialCreate")]
+    [Migration("20230507222636_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -92,6 +92,10 @@ namespace VendorEvents_1.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("ProductDescription")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("ProductImage")
                         .IsRequired()
                         .HasColumnType("TEXT");
 

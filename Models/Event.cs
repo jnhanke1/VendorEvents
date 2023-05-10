@@ -12,30 +12,38 @@ namespace VendorEvents_1.Models //namespace.Folder name
         [Required]
         public string EventName {get; set;} = string.Empty; 
 
+        [Display(Name = "Location")]
         public string EventLocation {get; set; } = string.Empty; 
 
-        [Display(Name = "Event Start")]
+        [Display(Name = "Event Date")]
         [Required]
         public DateTime EventStartDate {get; set;}
 
+        [Display(Name = "Participation Cost")]
         public decimal EventCost {get; set;}
 
+        [Display(Name = "Contact")]
         public string EventContactName {get; set;} = string.Empty; 
 
+        [Display(Name = "Contact Phone Number")]
         [Phone]
         public int EventPhone {get; set;} 
 
+        [Display(Name = "Contact Email")]
         [EmailAddress]
         public string EventEmail {get; set;} = string.Empty; 
 
+        [Display(Name = "Comments")]
         public string EventComments {get; set;} = string.Empty;
 
-        [StringLength(1)]
-        public string EventPaid {get;set;} = string.Empty;
-        
+
+        [Display(Name = "Event Booked? (Y/N)")]
         [StringLength(1)]
         public string EventBooked {get; set;} = string.Empty; 
 
+        [Display(Name = "Event Paid For? (Y/N)")]
+        [StringLength(1)]
+        public string EventPaid {get;set;} = string.Empty;
         
         public List<EventProduct> EventProducts {get; set;} = default!;  //Navigation Property. One event can have many products offered. 
 

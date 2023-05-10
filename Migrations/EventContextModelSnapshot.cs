@@ -92,6 +92,10 @@ namespace VendorEvents_1.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("ProductImage")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("ProductName")
                         .IsRequired()
                         .HasColumnType("TEXT");
