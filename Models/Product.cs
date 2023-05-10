@@ -25,7 +25,7 @@ namespace VendorEvents_1.Models //namespace.foldername
         [Display(Name = "Product Source")]
         public string ProductSource {get; set;} = string.Empty; 
         
-        [Display(Name = "ProductSample")]
+        [Display(Name = "Product Sample")]
         public string ProductImage {get; set;} = string.Empty; 
 
        // public int EventID {get; set;} //Foreign Key linking Product to Event.  - removed per KD

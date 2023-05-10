@@ -101,7 +101,7 @@ namespace VendorEvents_1.Models
                     EventComments = "Indoor - 2 day event 6/10/23-6/11/23. ", EventPaid = "N", EventBooked = "N"}    ,         
                     new Event {EventName = "Garden Fest", EventLocation = "Amarillo Botanical Gardens, Amarillo, TX", EventStartDate = DateTime.Parse("4/29/23"), 
                     EventCost =  0M, EventContactName = "Amarillo Botanical Gardens", EventPhone = 0000000, EventEmail = "email@email.com", 
-                    EventComments = "Outdoor. Heavy Traffic", EventPaid = "N", EventBooked = "N"}   
+                    EventComments = "Outdoor. Heavy Traffic", EventPaid = "N", EventBooked = "N"}   ,
                     new Event {EventName = "Annual Bash in July", EventLocation = "Agape Bliss Event Center, Plainview, TX", EventStartDate = DateTime.Parse("7/8/23"), 
                     EventCost = 0M, EventContactName = "Jesse Alaniz", EventPhone = 0000000, EventEmail = "email@gmail.com", 
                     EventComments = "Outside Booth, lunch provided for vendors. ", EventPaid = "N", EventBooked = "N"}                                                                                                                                             
