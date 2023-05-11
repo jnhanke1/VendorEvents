@@ -10,43 +10,71 @@
 <p>
     <a asp-page="Create">Create New</a>
 </p>
+
+
+<!-- Second Sorting Technique with a SelectList -->
+<form>
+    <select asp-for="CurrentSort" asp-items="Model.SortList">
+        <option value = "">sort by...</by></option>
+    </select>
+    <button type="submit">Sort</button>
+
+</form>
+
+<div class="table-responsive">
 <table class="table">
-    <thead>
+    <thead class="table-light">
         <tr>
             <th>
+                @{
+                    //alternate sort order:
+                    var firstSort = "date_asc"; 
+                    if (Model.CurrentSort == "date_asc")
+                    {
+                        firstSort = "date_desc"; 
+                    }
+                }
+                <!--FIXME: This will forget the pagenum! -->
+                    <a asp-page="./Index" asp-route-CurrentSort="@firstSort">@Html.DisplayNameFor(model => model.Event[0].EventStartDate)</a>
+
+            </th>
+
+            @* <th>
+                @Html.DisplayNameFor(model => model.Event[0].EventStartDate)
+            </th> *@
+            <p>   </p>
+
+            <th scope="col">
                 @Html.DisplayNameFor(model => model.Event[0].EventName)
             </th>
-            <th>
+            <th scope="col">
                 @Html.DisplayNameFor(model => model.Event[0].EventLocation)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Event[0].EventStartDate)
-            </th>
-            <th>
+
+            <th scope="col">
                 @Html.DisplayNameFor(model => model.Event[0].EventCost)
             </th>
-            <th>
+            <th scope="col">
                 @Html.DisplayNameFor(model => model.Event[0].EventBooked)
             </th>
-            <th>
+            <th scope="col">
                 @Html.DisplayNameFor(model => model.Event[0].EventPaid)
             </th>
-            <th>
-                Products Offered:
-            </th>
+           <th scope="col">                                      </th>
+            <th scope="col">Manage Event</th>  
         </tr>
     </thead>
     <tbody>
         @foreach (var item in Model.Event) {
-                <tr>
+                <tr class="align-left">
+                    <td>
+                        @Html.DisplayFor(modelItem => item.EventStartDate)
+                    </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.EventName)
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.EventLocation)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.EventStartDate)
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.EventCost)
@@ -60,18 +88,22 @@
                     </td>
 
                     <td>
+                    </td>
+                    <td>
+                                        
                     @*  product represents an EventProducts record
                         Each product has a Product navigation property which is the actual product
                         The Product has a description. So you do product.Product.ProductDescription *@
-                    @foreach (var product in item.EventProducts!)
+                   @* @foreach (var product in item.EventProducts!)
                     {
                         @product.Product.ProductName <br />
                     }
                     @if (item.EventProducts.Count == 0)
                     {
                         @:No products planned for this event.
-                    }                  
+                    }               *@   
                     </td>
+                    
                     <td>
                         <a asp-page="./Edit" asp-route-id="@item.EventID">Edit</a> |
                         <a asp-page="./Details" asp-route-id="@item.EventID">Details</a> |
@@ -81,8 +113,23 @@
         }
     </tbody>
 </table>
+</div>
+<hr />
 
-
-@section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+@{
+    //if we are on page 1, prevDisabled will be set to the "disabled" class. 
+    //otherwise, it will be empty. So our previous button will be enabled or disabled on this logic.
+    var prevDisabled = ""; 
+    if (Model.PageNum <= 1)
+    {
+        prevDisabled = "disabled";
+    }
 }
+
+<nav aria-label="Page navigation example">
+    <ul class="pagination">
+        @*<!-- FIXME: These buttons will forget your current sort order! -->*@
+        <li class="page-item @prevDisabled"><a class="page-link" asp-page="./Index" asp-route-PageNum="@(Model.PageNum - 1)">Previous</a></li>
+        <li class="page-item"><a class="page-link" asp-page="./Index" asp-route-PageNum="@(Model.PageNum + 1)">Next</a></li>
+    </ul>
+</nav>

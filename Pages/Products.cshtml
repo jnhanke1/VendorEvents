@@ -10,6 +10,15 @@
 </div>
 <!--a list of all products sold through the company-->
 
+<form asp-page="./Products" method="get">
+<div class="form actions no-color">
+    <p>
+        Find a Product by Name or Description:
+        <input type="text" name="SearchString" value="@Model.CurrentFilter" />
+        <input type="submit" value="Search" class="btn btn=info" />
+        <a asp-page="./Products">Back to full list</a>
+    </p>
+</div></form>
 
 <table class="table">
     <thead>
@@ -78,3 +87,22 @@
         }
     </tbody>
 </table>
+
+
+@{
+    //if we are on page 1, prevDisabled will be set to the "disabled" class. 
+    //otherwise, it will be empty. So our previous button will be enabled or disabled on this logic.
+    var prevDisabled = ""; 
+    if (Model.PageNum <= 1)
+    {
+        prevDisabled = "disabled";
+    }
+}
+
+<nav aria-label="Page navigation">
+    <ul class="pagination">
+        @*<!-- FIXME: These buttons will forget your current sort order! -->*@
+        <li class="page-item @prevDisabled"><a class="page-link" asp-page="./Products" asp-route-PageNum="@(Model.PageNum - 1)">Previous</a></li>
+        <li class="page-item"><a class="page-link" asp-page="./Products" asp-route-PageNum="@(Model.PageNum + 1)">Next</a></li>
+    </ul>
+</nav>
