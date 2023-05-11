@@ -58,6 +58,7 @@
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Event.EventComments)
         </dd>
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Event.EventBooked)
         </dt>
         <dd class="col-sm-10">
@@ -70,11 +71,16 @@
             @Html.DisplayFor(model => model.Event.EventPaid)
         </dd>
         <dt class="col-sm-2">
-
+    </dl>
 
         <div>
              
         </div>
+
+        <div class="row">
+
+
+
         <p>  </p>
         <h4> Products Offered at this event: </h4>
             <ul>
@@ -83,21 +89,22 @@
                 <form method="post">
                     <input type="hidden" asp-for="ProductIDToDelete" value="@product.Product.ProductID" />
                 <li>
-                          @product.Product.ProductDescription: @product.Product.ProductName <input type="submit" Value="Delete" class="btn btn-danger btn-sm my-1" asp-page-handler="DeleteProduct" asp-route-id="@Model.Event.EventID">
+                          @product.Product.ProductName: @product.Product.ProductDescription <input type="submit" Value="Delete" class="btn btn-danger btn-sm my-1" asp-page-handler="DeleteProduct" asp-route-id="@Model.Event.EventID">
                 </li>
                 </form>
             }
         </ul>      
-    </dl>
+        </div>
+
  <div class="row">
-    <div class="col-md-12">
+    <div class="col-md-8">
         <form method="post">
             <input type="hidden" asp-for="Event.EventID" />
             <div class="form-group">
                 <select asp-items="Model.ProductsDropDown" asp-for="ProductIDToAdd" class="form-control">
                     <option value="">--Select Product to Add--</option>
                 </select>
-                <span asp-validation-for="ProductIDToAdd" class="text-danger"></span>
+                <span asp-validation-for="ProductIDToAdd" class="text-info"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Add Product" class="btn btn-primary" asp-page-handler="" asp-route-id="@Model.Event.EventID"/>
@@ -110,3 +117,8 @@
     <a asp-page="./Edit" asp-route-id="@Model.Event?.EventID">Edit</a> |
     <a asp-page="./Index">Back to List</a>
 </div>
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

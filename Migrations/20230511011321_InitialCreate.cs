@@ -22,7 +22,7 @@ namespace VendorEvents_1.Migrations
                     EventStartDate = table.Column<DateTime>(type: "TEXT", nullable: false),
                     EventCost = table.Column<decimal>(type: "TEXT", nullable: false),
                     EventContactName = table.Column<string>(type: "TEXT", nullable: false),
-                    EventPhone = table.Column<int>(type: "INTEGER", nullable: false),
+                    EventPhone = table.Column<string>(type: "TEXT", nullable: false),
                     EventEmail = table.Column<string>(type: "TEXT", nullable: false),
                     EventComments = table.Column<string>(type: "TEXT", nullable: false),
                     EventBooked = table.Column<string>(type: "TEXT", maxLength: 1, nullable: false),

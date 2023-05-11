@@ -48,12 +48,23 @@ namespace VendorEvents_1.Pages.Events
 
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see https://aka.ms/RazorPagesCRUD.
+        //always add in the logging to catch errors as they occur and identify solutions!
         public async Task<IActionResult> OnPostAsync(int[] selectedProducts)
         {
-            if (!ModelState.IsValid)
-            {
-                return Page();
-            }
+           // if (!ModelState.IsValid)
+           // {
+
+          //  _logger.LogWarning("INVALID STATE"); 
+          //  foreach (var modelError in ModelState)
+          //  {
+          //      string propertyName = modelError.Key;
+          //      if(modelError.Value.Errors.Count > 0)
+          //      {
+          //          _logger.LogWarning($"ERROR: {propertyName} {modelError.Value.Errors[0].ErrorMessage}"); 
+           //     }
+          //  }
+           //     return Page();
+           // }
 
             //_context.Attach(event).State = entitystate.Modified - finds the event you want to update and update all their 'normal properties' 
             _context.Attach(Event).State = EntityState.Modified;

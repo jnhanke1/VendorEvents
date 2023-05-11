@@ -27,7 +27,7 @@ namespace VendorEvents_1.Models //namespace.Folder name
 
         [Display(Name = "Contact Phone Number")]
         [Phone]
-        public int EventPhone {get; set;} 
+        public string EventPhone {get; set;} = string.Empty; 
 
         [Display(Name = "Contact Email")]
         [EmailAddress]

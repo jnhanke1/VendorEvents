@@ -56,8 +56,9 @@ namespace VendorEvents_1.Migrations
                         .HasMaxLength(1)
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("EventPhone")
-                        .HasColumnType("INTEGER");
+                    b.Property<string>("EventPhone")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
 
                     b.Property<DateTime>("EventStartDate")
                         .HasColumnType("TEXT");

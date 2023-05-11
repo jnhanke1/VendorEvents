@@ -31,9 +31,9 @@
             <th>
                 @Html.DisplayNameFor(model => model.Event[0].EventPaid)
             </th>
-            @*<th>
+            <th>
                 Products Offered:
-            </th>*@
+            </th>
         </tr>
     </thead>
     <tbody>
@@ -53,10 +53,10 @@
                     </td>
                     <td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.EventPaid)
-                    </td>
-                    <td>
                         @Html.DisplayFor(modelItem => item.EventBooked)
+                    </td>
+                    <td>                        
+                        @Html.DisplayFor(modelItem => item.EventPaid)
                     </td>
 
                     <td>
@@ -65,7 +65,7 @@
                         The Product has a description. So you do product.Product.ProductDescription *@
                     @foreach (var product in item.EventProducts!)
                     {
-                        @product.Product.ProductDescription <br />
+                        @product.Product.ProductName <br />
                     }
                     @if (item.EventProducts.Count == 0)
                     {
@@ -81,3 +81,8 @@
         }
     </tbody>
 </table>
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

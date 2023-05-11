@@ -11,7 +11,7 @@ using VendorEvents_1.Models;
 namespace VendorEvents_1.Migrations
 {
     [DbContext(typeof(EventContext))]
-    [Migration("20230507222636_InitialCreate")]
+    [Migration("20230511011321_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -59,8 +59,9 @@ namespace VendorEvents_1.Migrations
                         .HasMaxLength(1)
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("EventPhone")
-                        .HasColumnType("INTEGER");
+                    b.Property<string>("EventPhone")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
 
                     b.Property<DateTime>("EventStartDate")
                         .HasColumnType("TEXT");
