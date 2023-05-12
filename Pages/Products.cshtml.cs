@@ -16,20 +16,15 @@ namespace VendorEvents_1.Pages
 {
     public class ProductModel : PageModel
     {
-        //dependency injection part 2
-        private readonly ILogger<ProductModel> _logger; 
+
         private readonly VendorEvents_1.Models.EventContext _context;
 
-        //property that represents our list of products to display:
-        public List<Product> Products {get; set;}
-        public ProductModel(EventContext context, ILogger<ProductModel> logger) //logging support.
+        public ProductModel(VendorEvents_1.Models.EventContext context)
         {
             _context = context;
-            _logger = logger; 
         }
 
-        public IList<Product> Product {get; set; } = default!; 
-
+        public IList<Product> Product { get;set; } = default!;
 
         // Paging support
         // PageNum is the current page number we are on
@@ -44,60 +39,57 @@ namespace VendorEvents_1.Pages
         public int PageNum {get;set;} = 1;
         public int PageSize {get; set;} = 10;
 
-        //search bar support: 
-        public string ProductNameSort {get; set; }
-        public string DescSort {get; set; }
-        public string CurrentFilter {get; set; }
-
         //sorting support:
         [BindProperty(SupportsGet = true)]
-        public string CurrentSort {get; set; } = string.Empty; 
+        public string CurrentSort {get; set;} = string.Empty; 
 
-        public async Task OnGetAsync(string sortOrder, string searchString)
+        //second sorting technique with a SelectList 
+        public SelectList SortList {get; set;} = default!; 
+
+
+
+
+        public async Task OnGetAsync() //add in paging to OnGetAsync.   
         {
-
-            //for search bar:
-            ProductNameSort = String.IsNullOrEmpty(sortOrder) ? "prod_asc" : ""; 
-            DescSort = string.IsNullOrEmpty(sortOrder) ? "desc_asc" : ""; 
-
-            //bring in all products from the database.
-            //_context is our 'db' variable, represents database.
-         //   Products = _context.Product.ToList(); 
-
-            //for search bar: 
-            CurrentFilter = searchString; 
-            IQueryable<Product> productsIQ = from p in _context.Product select p; 
-
-            if (!String.IsNullOrEmpty(searchString))
+            if (_context.Product != null)
             {
-                productsIQ = productsIQ.Where(p => p.ProductName.Contains(searchString) || p.ProductDescription.Contains(searchString)); 
-            }
+                //Product = await _context.Product.ToListAsync(); 
+                //sorting support
+                //break up query. Do basic query first, that just selects all events.
+                var query = _context.Product.Include(e => e.EventProducts).Select(e => e); 
+                List<SelectListItem> sortItems = new List<SelectListItem> {
+                    new SelectListItem { Text = "Products Ascending", Value = "prod_asc"},
+                    new SelectListItem { Text = "Products Descending", Value = "prod_desc"}, 
+                };
+                SortList = new SelectList(sortItems, "Value", "Text", CurrentSort);
 
-            //to sort products: 
-            switch(sortOrder)
-            {
-                case "prod_asc": 
-                productsIQ = productsIQ.OrderBy(p => p.ProductName); 
-                break ; 
-                case "desc_asc": 
-                productsIQ = productsIQ.OrderBy(p => p.ProductDescription); 
-                break; 
-                case "prod_desc": 
-                productsIQ = productsIQ.OrderByDescending(p => p.ProductName); 
-                break; 
-                case "desc_desc":
-                productsIQ = productsIQ.OrderByDescending(p => p.ProductDescription); 
-                break; 
-                default: 
-                productsIQ = productsIQ.OrderBy(p => p.ProductName); 
-                break; 
-            }
 
-                //retrieve just the events for teh page we are on: 
+                switch (CurrentSort)
+                {
+                    //if user selected "prod_asc", modify query to sort by booked, then date ascending order:
+                    case "prod_asc":
+                    query = query.OrderBy(e => e.ProductName);
+                    break; 
+                    //if user selected "prod_desc", modify query to sort by date ascending order
+                    case "prod_desc":
+                    query = query.OrderByDescending(e => e.ProductName); 
+                    break; 
+                    default: 
+                    query = query.OrderBy(e => e.ProductName); 
+                    break; 
+                }
+
+                //retrieve just the events for the page we are on: 
                 //use .Skip() and .Take() to select them:
-                Product = await productsIQ.Skip((PageNum-1)*PageSize).Take(PageSize).ToListAsync();
+                Product = await query.Skip((PageNum-1)*PageSize).Take(PageSize).ToListAsync();
+
+        
+        //calls list of events without sorting or paging:
+//            if (_context.Event != null)
+ //           {
+   //             Event = await _context.Event.Include(e => e.EventProducts!).ThenInclude(ep => ep.Product).ToListAsync(); //bring in all data for an event. .include --includes event product association table, then product info. 
+    //        }
+            }
         }
-
-
     }
 }

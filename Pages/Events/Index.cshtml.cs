@@ -51,7 +51,7 @@ namespace VendorEvents_1.Pages.Events
                 //Event = await _context.Event.ToListAsync(); 
                 //sorting support
                 //break up query. Do basic query first, that just selects all events.
-                var query = _context.Event.Select(e => e); 
+                var query = _context.Event.Include(e => e.EventProducts).Select(e => e); 
                 List<SelectListItem> sortItems = new List<SelectListItem> {
                     new SelectListItem { Text = "Booked Events", Value = "booked_asc"},
                     new SelectListItem { Text = "Event Date Ascending", Value = "date_asc" }, 

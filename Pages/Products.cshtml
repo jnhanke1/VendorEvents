@@ -6,11 +6,11 @@
 }
 
 <div class="text-center">
-    <h1 class="display-4">Products Ofered</h1>
+    <h1 class="display-4">Products Offered</h1>
 </div>
 <!--a list of all products sold through the company-->
 
-<form asp-page="./Products" method="get">
+@*<form asp-page="./Products" method="get">
 <div class="form actions no-color">
     <p>
         Find a Product by Name or Description:
@@ -18,33 +18,33 @@
         <input type="submit" value="Search" class="btn btn=info" />
         <a asp-page="./Products">Back to full list</a>
     </p>
-</div></form>
+</div></form> *@
 
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Products[0].ProductName)
+                @Html.DisplayNameFor(model => model.Product[0].ProductName)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Products[0].ProductDescription)
+                @Html.DisplayNameFor(model => model.Product[0].ProductDescription)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Products[0].ProductPrice)
+                @Html.DisplayNameFor(model => model.Product[0].ProductPrice)
             </th>    
             <th>
-                @Html.DisplayNameFor(model => model.Products[0].ProductQty)
+                @Html.DisplayNameFor(model => model.Product[0].ProductQty)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Products[0].ProductSource)
+                @Html.DisplayNameFor(model => model.Product[0].ProductSource)
             </th> 
             <th>
-                @Html.DisplayNameFor(model => model.Products[0].ProductImage)
+                @Html.DisplayNameFor(model => model.Product[0].ProductImage)
             </th>           
         </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model.Products) {
+        @foreach (var item in Model.Product) {
                 <tr>
                     <td>
                         @Html.DisplayFor(modelItem => item.ProductName)
