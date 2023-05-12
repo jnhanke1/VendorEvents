@@ -10,15 +10,15 @@
 </div>
 <!--a list of all products sold through the company-->
 
-@*<form asp-page="./Products" method="get">
+<form asp-page="./Products" method="get">
 <div class="form actions no-color">
     <p>
         Find a Product by Name or Description:
-        <input type="text" name="SearchString" value="@Model.CurrentFilter" />
+        <input type="text" name="searchString" value="@Model.CurrentFilter" />
         <input type="submit" value="Search" class="btn btn=info" />
         <a asp-page="./Products">Back to full list</a>
     </p>
-</div></form> *@
+</div></form> 
 
 <table class="table">
     <thead>

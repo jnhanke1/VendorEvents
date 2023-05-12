@@ -46,10 +46,12 @@ namespace VendorEvents_1.Pages
         //second sorting technique with a SelectList 
         public SelectList SortList {get; set;} = default!; 
 
+        //for search bar: 
+        public string ProductNameSort {get; set; } = string.Empty; 
+        public string DescSort {get; set; }
+        public string CurrentFilter {get; set; }
 
-
-
-        public async Task OnGetAsync() //add in paging to OnGetAsync.   
+        public async Task OnGetAsync(string sortOrder, string searchString) //add in paging to OnGetAsync.   sortOrder and searchString for search bar.
         {
             if (_context.Product != null)
             {
@@ -63,6 +65,16 @@ namespace VendorEvents_1.Pages
                 };
                 SortList = new SelectList(sortItems, "Value", "Text", CurrentSort);
 
+                //for search bar: 
+                ProductNameSort = String.IsNullOrEmpty(sortOrder) ? "prod_asc" : ""; 
+                DescSort = String.IsNullOrEmpty(sortOrder) ? "prod_desc" : ""; 
+
+                CurrentFilter = searchString; 
+                IQueryable<Product> productsIQ = from p in _context.Product select p; 
+                if (!String.IsNullOrEmpty(searchString))
+                {
+                    productsIQ = productsIQ.Where(p => p.ProductName!.Contains(searchString) || p.ProductDescription!.Contains(searchString)); 
+                }
 
                 switch (CurrentSort)
                 {
@@ -78,6 +90,8 @@ namespace VendorEvents_1.Pages
                     query = query.OrderBy(e => e.ProductName); 
                     break; 
                 }
+
+
 
                 //retrieve just the events for the page we are on: 
                 //use .Skip() and .Take() to select them:
